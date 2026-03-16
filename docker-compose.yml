@@ -1,0 +1,22 @@
+services:
+  api:
+    build:
+      context: ./chat-api
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./chat-api/.env
+    volumes:
+      - ./chat-api:/app
+      - /app/node_modules
+
+  frontend:
+    build:
+      context: ./chat-frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./chat-frontend:/app
+      - /app/node_modules
+    depends_on:
+      - api
